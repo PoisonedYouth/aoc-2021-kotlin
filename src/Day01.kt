@@ -1,17 +1,30 @@
+import java.io.File
+
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    val lines = File("src/Day01.txt").readLines().map { it.toInt() }
+
+    solvePartOne(lines)
+
+    solvePartTwo(lines)
+}
+
+private fun solvePartTwo(lines: List<Int>) {
+    val sums = lines.windowed(3).map { it.sum() }
+    var counter = 0
+    for (index in 0 until sums.lastIndex) {
+        if (sums[index + 1] > sums[index]) {
+            counter++
+        }
     }
+    println(counter)
+}
 
-    fun part2(input: List<String>): Int {
-        return input.size
+private fun solvePartOne(lines: List<Int>) {
+    var counter = 0
+    for (index in 0 until lines.lastIndex) {
+        if (lines[index + 1] > lines[index]) {
+            counter++
+        }
     }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    println(counter)
 }
