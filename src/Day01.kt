@@ -8,23 +8,10 @@ fun main() {
     solvePartTwo(lines)
 }
 
-private fun solvePartTwo(lines: List<Int>) {
-    val sums = lines.windowed(3).map { it.sum() }
-    var counter = 0
-    for (index in 0 until sums.lastIndex) {
-        if (sums[index + 1] > sums[index]) {
-            counter++
-        }
-    }
-    println(counter)
+private fun solvePartOne(lines: List<Int>) {
+    println(lines.windowed(2).count { it[1] > it[0] })
 }
 
-private fun solvePartOne(lines: List<Int>) {
-    var counter = 0
-    for (index in 0 until lines.lastIndex) {
-        if (lines[index + 1] > lines[index]) {
-            counter++
-        }
-    }
-    println(counter)
+private fun solvePartTwo(lines: List<Int>) {
+    println(lines.windowed(3). map { it.sum() }.windowed(2).count { it[1] > it[0] })
 }
