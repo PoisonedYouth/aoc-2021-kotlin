@@ -1,17 +1,48 @@
+import java.io.File
+import java.util.*
+
+
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    val lines = File("src/Day02.txt").readLines()
+
+    solveProblemOne(lines)
+
+    solveProblemTwo(lines)
+}
+
+private fun solveProblemTwo(lines: List<String>) {
+    val position = arrayOf(0, 0, 0)
+
+    lines.map { it.split(" ") }.forEach {
+        when (Direction.createDirection(it[0])) {
+            Direction.Forward -> {
+                position[0] += it[1].toInt()
+                position[1] += position[2] * it[1].toInt()
+            }
+            Direction.Down -> position[2] += it[1].toInt()
+            Direction.Up -> position[2] -= it[1].toInt()
+        }
     }
+    println(position[0] * position[1])
+}
 
-    fun part2(input: List<String>): Int {
-        return input.size
+private fun solveProblemOne(lines: List<String>) {
+    val position = arrayOf(0, 0)
+    lines.map { it.split(" ") }.forEach {
+        when (Direction.createDirection(it[0])) {
+            Direction.Forward -> position[0] += it[1].toInt()
+            Direction.Down -> position[1] += it[1].toInt()
+            Direction.Up -> position[1] -= it[1].toInt()
+        }
     }
+    println(position[0] * position[1])
+}
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+enum class Direction {
+    Forward, Up, Down;
 
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    companion object {
+        fun createDirection(value: String) =
+            valueOf(value.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() })
+    }
 }
