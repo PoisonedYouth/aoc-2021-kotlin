@@ -25,7 +25,7 @@ fun solvePartOne(lines: MutableList<Int>) {
 }
 
 fun solvePartTwo(lines: MutableList<Int>) {
-    val map = lines.groupBy { it }.map { (k, v) -> k to v.size.toLong() }.toMap().toMutableMap().toSortedMap()
+    val map = lines.groupBy { it }.map { (k, v) -> k to v.size.toLong() }.toMap().toSortedMap()
     repeat(256) {
         val zero = map.getOrDefault(0, 0L)
         val one = map.getOrDefault(1, 0L)
