@@ -1,4 +1,5 @@
 import java.io.File
+import java.util.*
 
 fun main() {
     val lines = File("src/Day10.txt").readLines()
@@ -12,12 +13,12 @@ fun main() {
 private fun solvePartOne(lines: List<String>, elements: Map<Char, Char>) {
     var score = 0
     for (line in lines) {
-        val deque = ArrayDeque<Char>()
+        val stack = Stack<Char>()
         for (character in line) {
             if (elements.keys.contains(character)) {
-                deque.addFirst(character)
+                stack.push(character)
             } else {
-                val element = deque.removeFirst()
+                val element = stack.pop()
                 if (character != elements[element]) {
                     score += calculateScoreChecker(character)
                     break
@@ -31,23 +32,23 @@ private fun solvePartOne(lines: List<String>, elements: Map<Char, Char>) {
 private fun solvePartTwo(lines: List<String>, elements: Map<Char, Char>) {
     val scoreList = mutableListOf<Long>()
     for (line in lines) {
-        val deque = ArrayDeque<Char>()
+        val stack = Stack<Char>()
         for (character in line) {
             if (elements.keys.contains(character)) {
-                deque.addFirst(character)
+                stack.push(character)
             } else {
-                val element = deque.removeFirst()
+                val element = stack.pop()
                 if (character != elements[element]) {
-                    deque.clear()
+                    stack.clear()
                     break
                 }
             }
         }
-        if (deque.isNotEmpty()) {
+        if (stack.isNotEmpty()) {
             val missingElements = mutableListOf<Char>()
             var score = 0L
-            while (deque.isNotEmpty()) {
-                val element = deque.removeFirst()
+            while (stack.isNotEmpty()) {
+                val element = stack.pop()
                 val matchingElement = elements[element]!!
                 missingElements.add(matchingElement)
                 score = score * 5 + calculateScoreCompleter(matchingElement)
