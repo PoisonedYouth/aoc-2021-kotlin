@@ -36,10 +36,6 @@ private fun solvePartOne(coordinates: List<Point>, folds: List<Fold>) {
 }
 
 private fun solvePartTwo(coordinates: List<Point>, folds: List<Fold>) {
-    val x0 = coordinates.minOf { it.x }
-    val y0 = coordinates.minOf { it.y }
-    val x1 = coordinates.maxOf { it.x }
-    val y1 = coordinates.maxOf { it.y }
 
     for (fold in folds) {
         for (i in coordinates.indices) {
@@ -54,9 +50,13 @@ private fun solvePartTwo(coordinates: List<Point>, folds: List<Fold>) {
             }
         }
     }
+    val x0 = coordinates.minOf { it.x }
+    val y0 = coordinates.minOf { it.y }
+    val x1 = coordinates.maxOf { it.x }
+    val y1 = coordinates.maxOf { it.y }
     for (i in y0..y1) {
         for(j in x0..x1) {
-            if(coordinates.contains(Point(j, i))) {
+            if(coordinates.distinct().contains(Point(j, i))) {
                 print("#")
             } else {
                 print(".")
